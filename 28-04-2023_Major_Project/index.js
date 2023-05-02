@@ -3,11 +3,11 @@ var ejs = require('ejs'); //which is gonna allow me pass data to HTML whenever I
 var bodyparser = require('body-parser');
 var mysql = require('mysql');
 
-sql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'node_project'
+mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "project_laravel"
 })
 
 
@@ -23,10 +23,10 @@ app.get('/', function(req, res) {
   // res.render('pages/index');  // dont show whole name of the file like "index.ejs" - NO , just use it pages/index.
   
   var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'node_project'
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "node_project"
   })
 
   con.query("SELECT * FROM products",(err,result)=>{
