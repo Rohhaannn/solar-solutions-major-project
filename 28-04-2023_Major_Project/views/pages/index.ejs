@@ -410,7 +410,20 @@
                     <% } else { %>
                       <h6> $ <%= item.price %> </h6>
                       <% } %>
-                    <a href="">
+
+
+
+
+                  <form action="/add_to_cart" method="post">
+                    <input type="hidden" name="id" value="<%= item.id %>">
+                    <input type="hidden" name="name" value="<%= item.name %>">
+                    <input type="hidden" name="price" value="<%= item.price %>">
+                    <input type="hidden" name="sale_price" value="<%= item.sale_price %>">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="image" value="<%= item.image %>">
+
+                    <button type="submit" style="background: none; border: none;">
+                    <a>
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                         <g>
                           <g>
@@ -464,6 +477,8 @@
                         </g>
                       </svg>
                     </a>
+                  </button>
+                  </form>
                   </div>
                 </div>
               </div>
