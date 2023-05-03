@@ -204,7 +204,7 @@
             </td>
 
             <td>
-              <% if(sale_price) { %>
+              <% if(item.sale_price) { %>
               <span class="product-price">$<%= item.sale_price * item.quantity %></span>
               <% } else { %>
               <span class="product-price">$<%= item.price * item.quantity %></span>
