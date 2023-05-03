@@ -33,6 +33,21 @@ function isProductInCart(cart, id) {
 }
 
 
+function calculateTotal(cart, id) {
+  total = 0;
+  for (let i=0; i<cart.length; i++) {
+    //if we're offering a discounted price
+    if (cart[i].sale_price) {
+      total += (cart[i].sale_price * cart[i].quantity);
+    } else {
+      total += (cart[i].price * cart[i].quantity);
+    }
+  }
+
+  req.session.total = total;
+  return total;
+}
+
 
 //localhost:3000
 app.get('/', function(req, res) {
@@ -71,5 +86,19 @@ app.post('/add_to_post', function(req, res){
       var cart = req.session.cart;
     }
   }
+
+  //calculate total
+  caculateTotal (cart, req);
+
+  //return to cart page
+  res.redirect('/cart');
+
+});
+app.get('/cart', function(req, res){
+
+  var cart = req.session.cart;
+  var total = req.session.total;
+
+  res.render('/pages/cart',{cart, total:total});
 
 });
