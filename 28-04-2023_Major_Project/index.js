@@ -37,6 +37,17 @@ app.get('/', function(req, res) {
     res.render('pages/index',{result:result});
   })
 
+});
 
+app.post('/add_to_post', function(req, res){
 
+  var id = req.body.id;
+  var name = req.body.name;
+  var price = req.body.price;
+  var sale_price = req.body.sale_price;
+  var quantity = req.body.quantity;
+  var image = req.body.image;
+  // var description = req.body.description;
+  var product = {id: id, name:name, price:price, sale_price:sale_price, quantity:quantity, image:image}
+  
 });
