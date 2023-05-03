@@ -22,6 +22,18 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(session({secret:"secret"}));
 
 
+function isProductInCart(cart, id) {
+  
+  for (let i=0; i<cart.length; i++) {
+    if (cart[i].id == id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+
 //localhost:3000
 app.get('/', function(req, res) {
   // res.render('pages/index');  // dont show whole name of the file like "index.ejs" - NO , just use it pages/index.
@@ -49,5 +61,15 @@ app.post('/add_to_post', function(req, res){
   var image = req.body.image;
   // var description = req.body.description;
   var product = {id: id, name:name, price:price, sale_price:sale_price, quantity:quantity, image:image}
-  
+
+  if(req.session.cart) {
+    var cart = req.session.cart;
+    if (!isProductInCart()) {
+      cart.push(product);
+    } else {
+      req.session.cart = [product];
+      var cart = req.session.cart;
+    }
+  }
+
 });
