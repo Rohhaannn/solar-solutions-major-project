@@ -170,16 +170,20 @@
         <th>Subtotal</th>
       </tr>
 
-
+        <% cart.forEach(functin(item) { %>
 
 
           <tr>
             <td>
               <div class="product-info">
-                <img style="width: 75px; height: 75px" src="images/f1.png">
+                <img style="width: 75px; height: 75px" src="images/<%= item.image %>">
                 <div>
-                  <p>Burger</p>
-                  <small><span>$</span>199</small>
+                  <p> <%= item.name %> </p>
+                  <% if (item.sale_price) { %>
+                  <small><span>$</span> <%= item.sale_price %> </small>
+                  <% } else { %>
+                  <small><span>$</span> <%= item.price %> </small>
+                  <% } %>
                   <br>
                   <form> 
 
@@ -191,7 +195,7 @@
 
             <td>
               <form>
-                  <input type="submit" value="-" class="edit-btn " name="decrease_product_quantity_btn">
+                <input type="submit" value="-" class="edit-btn " name="decrease_product_quantity_btn">
       
                 <input type="text" name="quantity" value="1" readonly="">
 
@@ -200,12 +204,18 @@
             </td>
 
             <td>
-              <span class="product-price">$199</span>
+              <% if(sale_price) { %>
+              <span class="product-price">$<%= item.sale_price * item.quantity %></span>
+              <% } else { %>
+              <span class="product-price">$<%= item.price * item.quantity %></span>
+              <% } %>
             </td>
           </tr>
 
 
+          <% }) %>
     </table>
+
 
 
     <div class="cart-total">
