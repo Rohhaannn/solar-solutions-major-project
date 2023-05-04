@@ -1,6 +1,6 @@
 var express = require('express');
 var ejs = require('ejs'); //which is gonna allow me pass data to HTML whenever I want
-var bodyparser = require('body-parser');
+var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var session = require('express-session');
 
@@ -18,7 +18,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.listen(3004);   //port number
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({secret:"secret"}));
 
 
@@ -33,14 +33,14 @@ function isProductInCart(cart, id) {
 }
 
 
-function calculateTotal(cart, id) {
+function calculateTotal(cart, req) {
   total = 0;
   for (let i=0; i<cart.length; i++) {
     //if we're offering a discounted price
     if (cart[i].sale_price) {
-      total += (cart[i].sale_price * cart[i].quantity);
+      total = total + (cart[i].sale_price * cart[i].quantity);
     } else {
-      total += (cart[i].price * cart[i].quantity);
+      total = total + (cart[i].price * cart[i].quantity);
     }
   }
 
@@ -67,7 +67,7 @@ app.get('/', function(req, res) {
 
 });
 
-app.post('/add_to_post', function(req, res){
+app.post('/add_to_cart', function(req, res){
 
   var id = req.body.id;
   var name = req.body.name;
@@ -79,27 +79,28 @@ app.post('/add_to_post', function(req, res){
 
   if(req.session.cart) {
     var cart = req.session.cart;
-    if (!isProductInCart()) {
+    if (!isProductInCart(cart, id)) {
       cart.push(product);
-    } else {
+    } 
+  } else {
       req.session.cart = [product];
       var cart = req.session.cart;
     }
-  }
 
   //calculate total
-  caculateTotal (cart, req);
+  calculateTotal(cart,req);
 
   //return to cart page
   res.redirect('/cart');
 
 });
+
 app.get('/cart', function(req, res){
 
   var cart = req.session.cart;
   var total = req.session.total;
 
-  res.render('/pages/cart',{cart, total:total});
+  res.render('pages/cart',{cart:cart, total:total});
 
 });
 
