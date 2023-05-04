@@ -172,11 +172,10 @@
 
         <% cart.forEach(functin(item) { %>
 
-
           <tr>
             <td>
               <div class="product-info">
-                <img style="width: 75px; height: 75px" src="images/<%= item.image %>">
+                <img src="images/<%= item.image %>">
                 <div>
                   <p> <%= item.name %> </p>
                   <% if (item.sale_price) { %>
@@ -196,7 +195,7 @@
 
             <td>
               <form method="post" action="/edit_product_quantity">
-                <input type="hidden" value="<%= item.id" name="id">
+                <input type="hidden" value="<%= item.id %>" name="id">
 
                 <input type="submit" value="-" class="edit-btn " name="decrease_product_quantity">
                 <input type="text" name="quantity" value="<% item.quantity %>" readonly>
@@ -213,8 +212,8 @@
             </td>
           </tr>
 
-
           <% }) %>
+
     </table>
 
 
