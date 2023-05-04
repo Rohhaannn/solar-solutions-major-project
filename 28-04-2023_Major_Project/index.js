@@ -17,7 +17,7 @@ var app = express();
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-app.listen(3000);   //port number
+app.listen(3004);   //port number
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(session({secret:"secret"}));
 
