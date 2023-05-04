@@ -185,8 +185,9 @@
                   <small><span>$</span> <%= item.price %> </small>
                   <% } %>
                   <br>
-                  <form> 
+                  <form method="post" action="/remove_product"> 
 
+                    <input type="hidden" name="id" value="<%= item.id %>">
                     <input type="submit" name="remove_btn" class="remove-btn" value="remove">
                   </form>
                 </div>
