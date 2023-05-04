@@ -100,7 +100,7 @@ app.get('/cart', function(req, res){
   var cart = req.session.cart;
   var total = req.session.total;
 
-  res.render('pages/cart',{cart:cart, total:total});
+  res.render('pages/cart',{cart:cart, total:total})
 
 });
 
@@ -139,4 +139,4 @@ app.post('/edit_product_quantity', function(req, res){
 
 
 
-})
+});
