@@ -52,7 +52,7 @@ function calculateTotal(cart, req) {
 //localhost:3000
 app.get('/', function(req, res) {
   
-  // res.render('pages/index');  // dont show whole name of the file like "index.ejs" - NO , just use it pages/index.
+  //res.render('pages/index');  // dont show whole name of the file like "index.ejs" - NO , just use it pages/index.
   
   var con = mysql.createConnection({
     host: "localhost",
