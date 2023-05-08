@@ -166,7 +166,7 @@ app.post('/place_order',function(rq,res){
     if(err) {
       console.log(err)
     } else {
-      var query = "IMSERT INTO orders(cost, name, email, status, city, address, phone, date) VALUES ?";
+      var query = "INSERT INTO orders(cost, name, email, status, city, address, phone, date) VALUES ?";
       var values = [
         [cost, name, email, status, city, address, phone, date]
       ];
