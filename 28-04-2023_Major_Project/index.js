@@ -137,6 +137,12 @@ app.post('/edit_product_quantity', function(req, res){
   calculateTotal(cart, req);
   res.redirect('/cart');
 
-
-
 });
+
+app.get('/checkout', function(req,res){
+  res.render('pages/checkout')
+})
+
+app.post('/place_order',function(rq,res){
+
+})
