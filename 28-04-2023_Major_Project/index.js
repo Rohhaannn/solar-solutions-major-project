@@ -144,7 +144,7 @@ app.get('/checkout', function(req,res){
   res.render('pages/checkout')
 })
 
-app.post('/place_order',function(rq,res){
+app.post('/place_order',function(req,res){
 
   var name = req.body.name;
   var email = req.body.email;
