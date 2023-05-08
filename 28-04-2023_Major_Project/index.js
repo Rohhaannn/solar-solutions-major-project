@@ -140,9 +140,46 @@ app.post('/edit_product_quantity', function(req, res){
 });
 
 app.get('/checkout', function(req,res){
+  var total = req.session.total
   res.render('pages/checkout')
 })
 
 app.post('/place_order',function(rq,res){
 
+  var name = req.body.name;
+  var email = req.body.email;
+  var phone = req.body.phone;
+  var city = req.body.city;
+  var address = req.body.address;
+  var cost = req.session.total;
+  var status = "not paid";
+  var date = new Date();
+
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "project_laravel"
+  })
+
+  con.connect((err)=>{
+    if(err) {
+      console.log(err)
+    } else {
+      var query = "IMSERT INTO orders(cost, name, email, status, city, address, phone, date) VALUES ?";
+      var values = [
+        [cost, name, email, status, city, address, phone, date]
+      ];
+    
+      
+      con.query(query,[values],(err,result) => {
+        res.redirect('/payment');
+      })
+    }
+  })
+
+})
+
+app.get ('/payment',function(req, res){
+  res.render('/pages/payment')
 })
