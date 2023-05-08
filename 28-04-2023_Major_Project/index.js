@@ -159,7 +159,7 @@ app.post('/place_order',function(rq,res){
     host: "localhost",
     user: "root",
     password: "",
-    database: "project_laravel"
+    database: "node_project"
   })
 
   con.connect((err)=>{
