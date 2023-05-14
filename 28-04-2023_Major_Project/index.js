@@ -9,7 +9,7 @@ mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "project_laravel"
+  database: "node_project"
 })
 
 
@@ -49,7 +49,7 @@ function calculateTotal(cart, req) {
 }
 
 
-//localhost:3000
+//localhost:3004
 app.get('/', function(req, res) {
   
   //res.render('pages/index');  // dont show whole name of the file like "index.ejs" - NO , just use it pages/index.
@@ -66,6 +66,8 @@ app.get('/', function(req, res) {
   })
 
 });
+
+//add to cart page code
 
 app.post('/add_to_cart', function(req, res){
 
@@ -94,6 +96,8 @@ app.post('/add_to_cart', function(req, res){
   res.redirect('/cart');
 
 });
+
+//cart page code
 
 app.get('/cart', function(req, res){
 
@@ -139,10 +143,15 @@ app.post('/edit_product_quantity', function(req, res){
 
 });
 
+//checkout page code
+
 app.get('/checkout', function(req,res){
   var total = req.session.total
-  res.render('pages/checkout')
+  res.render('pages/checkout',{total:total})
 })
+
+
+//place order page code
 
 app.post('/place_order',function(req,res){
 
@@ -154,6 +163,7 @@ app.post('/place_order',function(req,res){
   var cost = req.session.total;
   var status = "not paid";
   var date = new Date();
+  var products_ids = "";
 
   var con = mysql.createConnection({
     host: "localhost",
@@ -162,22 +172,25 @@ app.post('/place_order',function(req,res){
     database: "node_project"
   })
 
+  var cart = req.session.cart;
+  for(let i=0; i<cart.length; i++) {
+    products_ids = products_ids + " , " +cart[i].id;
+  }
+
   con.connect((err)=>{
     if(err) {
-      console.log(err)
+      console.log(err);
     } else {
-      var query = "INSERT INTO orders(cost, name, email, status, city, address, phone, date) VALUES ?";
+      var query = "INSERT INTO orders(cost, name, email, status, city, address, phone, date, products_ids) VALUES ?";
       var values = [
-        [cost, name, email, status, city, address, phone, date]
+        [cost, name, email, status, city, address, phone, date, products_ids]
       ];
-    
-      
+
       con.query(query,[values],(err,result) => {
         res.redirect('/payment');
       })
     }
   })
-
 })
 
 app.get ('/payment',function(req, res){
