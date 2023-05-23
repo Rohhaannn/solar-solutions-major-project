@@ -174,7 +174,7 @@ app.post('/place_order',function(req,res){
 
   var cart = req.session.cart;
   for(let i=0; i<cart.length; i++) {
-    products_ids = products_ids + " , " +cart[i].id;
+    products_ids = products_ids + " , " + cart[i].id;
   }
 
   con.connect((err)=>{
